@@ -11,7 +11,7 @@ library(tidyverse)
 # DATA ####
 
 microsite <- read_sheet("https://docs.google.com/spreadsheets/d/11OT2-G6UCpaIVKsEvykI1HtpqDd9xdFLZJoLI3cf86g/edit#gid=0")
-capture <- read_sheet("https://docs.google.com/spreadsheets/d/11OT2-G6UCpaIVKsEvykI1HtpqDd9xdFLZJoLI3cf86g/edit#gid=0", sheet = 2)
+capture <- read_sheet("https://docs.google.com/spreadsheets/d/11OT2-G6UCpaIVKsEvykI1HtpqDd9xdFLZJoLI3cf86g/edit#gid=0", sheet = 2, col_types = "Dccccccnnnccccc")
 
 write_csv(microsite, "data/microsite_raw.csv")
 write_csv(capture, "data/capture_raw.csv")
