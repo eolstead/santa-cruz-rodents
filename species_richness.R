@@ -38,3 +38,4 @@ ggplot(site_sp_count, aes(x = Site, y = n_species, fill = Site)) +
   geom_col() +
   ylab("Species Richness") +
   theme_bw()
+ggsave("output/site_sp_richness.png")
