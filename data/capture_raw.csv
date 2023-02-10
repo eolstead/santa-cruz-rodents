@@ -1,0 +1,52 @@
+Date,Site,Trap ID,Species,Status (R/N),Sex,Total Weight,Bag weight,Animal Weight,Hind foot length,Tail length,Hair sample (Y/N),Position (R/L),Handler,Notes
+2022-11-14T00:00:00Z,Heritage,4C,SIOC,N,F,,,,,,Y,L,ADB,NA
+2022-11-14T00:00:00Z,Heritage,4D,SIOC,N,M,,,,,,Y,L,ADB,NA
+2022-11-14T00:00:00Z,Heritage,4I,SIOC,N,"NA",,,,,,Y,R,EGO,NA
+2022-11-14T00:00:00Z,Heritage,2H,REME,N,M,,,,,,Y,all,EGO,NA
+2022-11-14T00:00:00Z,Heritage,4J,SIOC?,N,"NA",,,,,,N,"NA",ADB,Escaped
+2022-11-14T00:00:00Z,Heritage,2F,REME,N,F,,,,,,Y,L,ADB,NA
+2022-11-15T00:00:00Z,Heritage,4C,SIOC,R,"NA",,,,,,"NA","NA",ADB,NA
+2022-11-15T00:00:00Z,Heritage,4H,SIOC,N,F,,,,,,Y,L,ADB,NA
+2022-11-15T00:00:00Z,Heritage,1H,REME,N,"NA",,,,,,N,NA,EGO,Escaped
+2022-11-15T00:00:00Z,Heritage,1B,REME,N,F,,,,,,Y,R,ADB,NA
+2022-11-15T00:00:00Z,Heritage,4I,SIOC,N,M,,,,,,?,?,ADB,NA
+2022-11-15T00:00:00Z,Heritage,1G,SIOC,N,F,,,,,,Y,L,EGO,NA
+2022-11-15T00:00:00Z,Heritage,1J,REME,N,"NA",,,,,,N,NA,ADB,Escaped
+2022-11-15T00:00:00Z,Heritage,1E,SIOC,N,F,,,,,,Y,L,EGO,NA
+2022-11-15T00:00:00Z,Heritage,3B,REME,N,M,,,,,,Y,L,EGO,NA
+2022-11-15T00:00:00Z,Heritage,1I,SIOC,N,F,,,,,,Y,L,ADB,NA
+2022-11-15T00:00:00Z,Heritage,3G,SIOC,N,F,,,,,,N,NA,EGO,juvi
+2022-11-15T00:00:00Z,Heritage,2H,SIOC,N,"NA",,,,,,N,NA,ADB,juvi
+2022-11-16T00:00:00Z,Heritage,1J,REME,N,F,,,,,,Y,L,EGO,NA
+2022-11-16T00:00:00Z,Heritage,1F,SIOC,R,F,,,,,,N,L,EGO,likely recap of 1E ind. from 11/15
+2022-11-16T00:00:00Z,Heritage,1E,SIOC,N,M,,,,,,Y,R,EGO,NA
+2022-11-16T00:00:00Z,Heritage,1H,SIOC,N,M,,,,,,Y,L,EGO,NA
+2022-11-16T00:00:00Z,Heritage,1I,SIOC,N,F,,,,,,Y,R,EGO,NA
+2022-11-16T00:00:00Z,Heritage,1D,SIOC,N,F,,,,,,Y,R,EGO,NA
+2022-11-16T00:00:00Z,Heritage,2G,REME,N,M,,,,,,Y,R,EGO,NA
+2022-11-16T00:00:00Z,Heritage,1C,REME,N,F,,,,,,Y,L,EGO,NA
+2022-11-16T00:00:00Z,Heritage,4H,SIOC,N?,F,,,,,,N,NA,EGO,Juvi may be same from yesterday
+2022-11-16T00:00:00Z,Heritage,3H,REME,N,M,,,,,,Y,L,EGO,NA
+2022-11-16T00:00:00Z,Heritage,4B,SIOC,N,M,,,,,,Y,L,EGO,NA
+2022-11-16T00:00:00Z,Heritage,4J,SIOC,R,F,,,,,,N,L,EGO,NA
+2022-11-16T00:00:00Z,Heritage,4E,SIOC,N,M,,,,,,Y,L,ADB,NA
+2022-11-16T00:00:00Z,Heritage,2A,SIOC,N,F,,,,,,Y,"NA",EGO,tail short- lost part of it
+2022-11-16T00:00:00Z,Heritage,4C,SIOC,N,M,,,,,,Y,L,EGO,NA
+2022-11-16T00:00:00Z,Heritage,4I,SIOC,N,M,,,,,,Y,L,ADB,NA
+2022-11-16T00:00:00Z,Heritage,4D,SIOC,N,F,,,,,,Y,L,EGO,Juvi?
+2022-11-16T00:00:00Z,Heritage,3C,SIOC,R,"NA",,,,,,N,"NA",ADB,NA
+2022-11-16T00:00:00Z,Drexel,B7,CHPE,N,M,,,,,,Y,R,ADB,NA
+2022-11-16T00:00:00Z,Drexel,B10,PEER,N,"NA",,,,,,Y,R,ADB,NA
+2022-11-16T00:00:00Z,Drexel,D6,SIOC,N,M,,,,,,Y,L,ADB,NA
+2022-11-17T00:00:00Z,Drexel,A3,NEAB,N,"NA",,,,,,N,NA,ADB,Escaped
+2022-11-17T00:00:00Z,Drexel,C2,DIME,N,F,,,,,,Y,L,EGO,4 toes
+2022-11-17T00:00:00Z,Drexel,C6,DIME,N,F,,,,,,Y,L,EGO,"4 toes, forepaw sore/injured? cheek ouched ripped open? looks like old wound, released without further handling"
+2022-11-17T00:00:00Z,Drexel,C9,CHPE,R,"NA",,,,,,N,NA,EGO,NA
+2022-11-17T00:00:00Z,Drexel,C10,PEER,"NA","NA",,,,,,N,NA,EGO,Escaped
+2022-11-18T00:00:00Z,Drexel,C3,DI,"NA","NA",,,,,,"NA","NA",ADB,Escaped!
+2022-11-18T00:00:00Z,Drexel,C5,DIME,N,F,,,,,,Y?,NA,EGO,4 toes
+2022-11-18T00:00:00Z,Drexel,C7,CHPE,R,NA,,,,,,NA,R,EGO,NA
+2022-11-18T00:00:00Z,Drexel,C8,PEER,N,F,,,,,,Y,R,EGO,NA
+2022-11-18T00:00:00Z,Drexel,D10,PEER,N,"NA",,,,,,Y,L,EGO,NA
+2022-11-18T00:00:00Z,Drexel,C10,PEER,R,"NA",,,,,,N,L,EGO,NA
+2022-11-18T00:00:00Z,Drexel,D6,DIME?,N,F,,,,,,Y,R,EGO,forgot to count her toes!
