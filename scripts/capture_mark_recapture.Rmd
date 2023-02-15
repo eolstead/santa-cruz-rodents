@@ -1,0 +1,20 @@
+---
+title: "Capture Mark Recapture"
+author: "Ellen Bledsoe"
+date: "`r Sys.Date()`"
+output: github_document
+---
+
+# Figuruing out CMR in `unmarked`
+
+Install and load `unmarked`
+```{r}
+install.packages("unmarked")
+library(unmarked)
+```
+
+Open the vignette from unmarked about capture-mark-recapture
+```{r}
+vignette("cap-recap", package = "unmarked")
+```
+
