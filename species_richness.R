@@ -39,3 +39,24 @@ ggplot(site_sp_count, aes(x = Site, y = n_species, fill = Site)) +
   ylab("Species Richness") +
   theme_bw()
 ggsave("output/site_sp_richness.png")
+
+
+# Abundance Calculation Without Recaptures
+
+# removed ? and NA
+fixed_recaptures <- capture %>% 
+  mutate(`Status (R/N)` = stringr::str_remove(`Status (R/N)`, "\\?"),
+         `Status (R/N)` = replace_na(`Status (R/N)`,"N"))
+
+fixed_abundance <- filter(fixed_recaptures, `Status (R/N)` != "R",
+       Species != "SIOC?", Species != "DIME?", Species != "DI") %>% 
+  group_by(Site, Species) %>% 
+  count()
+
+shannon_index <- fixed_abundance %>% 
+  group_by(Site) %>% 
+  mutate(Site_Total=sum(n),
+         Proportion=n/Site_Total,
+         lnProp=log(Proportion),
+         Prop_x_lnProp = Proportion*lnProp) %>% 
+  summarise(ShannonIndex=-sum(Prop_x_lnProp))
