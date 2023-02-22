@@ -5,6 +5,8 @@
 # PACKAGES and DATA ####
 
 library(tidyverse)
+install.packages("rstatix")
+library(rstatix)
 
 # Data
 microsite <- read_csv("data/microsite_raw.csv")
@@ -70,3 +72,37 @@ microsite <- microsite %>%
                              TRUE ~ 'N')
   )
 
+
+grass <- c("Bermuda grass", "Unknown grass", "Buffelgrass", "Unidentified grass", "Johnson grass", "Unidentified Grama grass", "Johnson grass, bermuda grass", "Bermuda grass / Johnson grass", "Johnson grass / bermuda grass" )
+shrubs <- c("Arrowweed", "Cheese bush", "Cheesebush", "Desert broom", "Mesquite", "Salt cedar", "Desert broom/salt cedar")
+forbs <- c("Cockleburr", "Cheeseweed burrobush")
+sedge_typha <- c("Umbrella flatsedge", "Typha")
+mixed <- c("Tall flatsedge / Bermuda mix", "Salt cedar / Typha", "Cheeseweed burrobush/Johnson grass", "Desert broom/Bermuda grass", "Johnson grass, desert broom", "unidentified aster/Bermuda grass", "Smartweed/Typha mix")
+
+microsite <- microsite %>% 
+  mutate(Grouped_Veg = case_when(`Type of Vegetation` %in% grass ~ 'grass', 
+                                 `Type of Vegetation` %in% shrubs ~ 'shrubs',
+                                 `Type of Vegetation` %in% forbs ~ 'forb',
+                                 `Type of Vegetation` %in% sedge_typha ~ 'sedge_typha',
+                                 TRUE ~ 'mixed'))
+
+joined_data <- full_join(capture, microsite, by=c("Trap ID" = "Trap Location", "Site" = "Site")) %>% 
+  select(-`Status (R/N)`:-Handler) %>% 
+  filter(Species != "SIOC?", Species != "DIME?", Species != "DI")
+
+contingency_table <- table(joined_data$Species, joined_data$Grouped_Veg)
+contingency_table  
+
+chi_square_model <-  chisq.test(contingency_table, simulate.p.value = TRUE)
+chi_square_model
+
+pairwise_chisq_gof_test(test)
+
+
+dimnames(contingency_table) <- list(
+  Species = c("CHPE", "DIME", "NEAB", "PEER", "REME", "SIOC"),
+  Grouped_Veg = c("forb", "grass", "mixed", "sedge_typha", "shrubs")
+)
+
+chisq_test(contingency_table)
+test <- contingency_table+1
