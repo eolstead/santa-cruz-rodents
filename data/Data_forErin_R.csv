@@ -38,7 +38,7 @@ Heritage,4F,0,bermuda,50,36,0,0,0,0,0,0
 Heritage,4G,0,buffelgrass,40,35,0,0,0,0,0,0
 Heritage,4H,0.5,buffelgrass,30,32,1,0,0,0,0,0
 Heritage,4I,0,buffelgrass,50,26,1,0,0,0,0,0
-Heritage,4J,0,bermuda,50,17,1,0,0,0,0,0
+Heritage,4J,0,bermuda,50,17,0,0,0,0,0,0
 Drexel,A1,4.5,Desert broom,0,1500,0,0,0,0,0,0
 Drexel,A10,4,Johnson grass,0,1500,0,0,0,0,0,0
 Drexel,A2,2,Unknown grass,0,1500,0,0,0,0,0,0
@@ -62,7 +62,7 @@ Drexel,B9,0.5,buffelgrass,20,1500,0,0,0,0,0,0
 Drexel,C1,0,cheeseweed,50,1500,0,0,0,0,0,0
 Drexel,C10,0,Desert broom,70,1500,0,0,0,0,1,0
 Drexel,C2,0.25,bermuda,30,1500,0,0,1,0,0,0
-Drexel,C3,0,Cheeseweed/Johnson,15,1500,0,0,1,0,0,0
+Drexel,C3,0,Cheeseweed/Johnson,15,1500,0,0,0,0,0,0
 Drexel,C4,0,bermuda,40,1500,0,0,0,0,0,0
 Drexel,C5,0,Desert broom,20,1500,0,0,1,0,0,0
 Drexel,C6,0.5,cheeseweed,5,1500,0,0,1,0,0,0
@@ -75,7 +75,7 @@ Drexel,D2,0,Johnson grass/desert broom,50,1500,0,0,0,0,0,0
 Drexel,D3,0,bermuda_johnson,100,1500,0,0,0,0,0,0
 Drexel,D4,0,Johnson grass,50,1500,0,0,0,0,0,0
 Drexel,D5,0,Johnson_bermuda,50,1500,0,0,0,0,0,0
-Drexel,D6,0,bermuda,40,1500,1,0,1,0,0,0
+Drexel,D6,0,bermuda,40,1500,1,0,0,0,0,0
 Drexel,D7,0,bermuda,40,1500,0,0,0,0,0,0
 Drexel,D8,0,buffelgrass,80,1500,0,0,0,0,0,0
 Drexel,D9,1,cheeseweed,0,1500,0,0,0,0,0,0

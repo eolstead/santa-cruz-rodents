@@ -18,7 +18,7 @@ library(compiler)
 ##load in species v. available points, which should be compiled into a single dataset and labeled as 0,1 
 #and include variables you'd like to include in RSF
 
-data<-read.csv('~/....file path..../Data_forErin_R.csv', header=T, sep=",", stringsAsFactors = TRUE)
+data<-read.csv('data/Data_forErin_R.csv', header=T, sep=",", stringsAsFactors = TRUE)
 attach(data)
 
 ################################################################### RSF PACKAGE ###############################################################
@@ -29,8 +29,8 @@ install.packages("ResourceSelection")
 library(ResourceSelection)
 
 #scale continuous variables:
-data$var1<-scale(data$var1)
-data$var2<-scale(data$var2)
+data$var1 <- scale(data$var1)
+data$var2 <- scale(data$var2)
 
 #run rspf & create object for each model of interest
 #where "species" is your column of 0s and 1s associated with each species
