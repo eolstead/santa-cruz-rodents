@@ -1,16 +1,20 @@
+# Install devtools for MuMIn package
+install.packages("devtools")
 
-install.packages("MuMIn")
+# Install MuMIn package from GitHub
+devtools::install_github("cran/MuMIn")
+
+install.packages("tidyverse")
 install.packages("GGally")
 install.packages("reshape2")
-install.packages("compiler")
-
+install.packages("lme4")
 
 library(lme4)
 library(MuMIn)
 library(ggplot2)
 library(GGally)
 library(reshape2)
-library(compiler)
+library(tidyverse)
 
 
 ###This code has two different ways to conduct a RSF - dredge method, or method using rsf package
@@ -18,8 +22,29 @@ library(compiler)
 ##load in species v. available points, which should be compiled into a single dataset and labeled as 0,1 
 #and include variables you'd like to include in RSF
 
-data<-read.csv('data/Data_forErin_R.csv', header=T, sep=",", stringsAsFactors = TRUE)
+rsf <- read.csv('data/Data_forErin_R.csv', header = T, sep = ",", stringsAsFactors = TRUE)
 attach(data)
+
+# Make veg category column
+
+# Create groupings for vegetation data
+microsite <- read_csv("data/microsite_raw.csv")
+
+grass <- c("Bermuda grass", "Unknown grass", "Buffelgrass", "Unidentified grass", "Johnson grass", "Unidentified Grama grass", "Johnson grass, bermuda grass", "Bermuda grass / Johnson grass", "Johnson grass / bermuda grass" )
+shrubs <- c("Arrowweed", "Cheese bush", "Cheesebush", "Desert broom", "Mesquite", "Salt cedar", "Desert broom/salt cedar")
+forbs <- c("Cockleburr", "Cheeseweed burrobush")
+sedge_typha <- c("Umbrella flatsedge", "Typha")
+mixed <- c("Tall flatsedge / Bermuda mix", "Salt cedar / Typha", "Cheeseweed burrobush/Johnson grass", "Desert broom/Bermuda grass", "Johnson grass, desert broom", "unidentified aster/Bermuda grass", "Smartweed/Typha mix")
+
+microsite <- microsite%>% 
+  mutate(Grouped_Veg = case_when(veg_type %in% grass ~ 'grass', 
+                                 veg_type %in% shrubs ~ 'shrubs',
+                                 veg_type %in% forbs ~ 'forb',
+                                 veg_type %in% sedge_typha ~ 'sedge_typha',
+                                 TRUE ~ 'mixed'))
+
+rsf_veg <- full_join(rsf, select(microsite, `Trap Location`, Grouped_Veg), by = c("trap_id" = "Trap Location"))
+
 
 ################################################################### RSF PACKAGE ###############################################################
 
@@ -28,35 +53,37 @@ attach(data)
 install.packages("ResourceSelection")
 library(ResourceSelection)
 
-#scale continuous variables:
-data$var1 <- scale(data$var1)
-data$var2 <- scale(data$var2)
+rsf_veg <- as.data.frame(rsf_veg)
 
-#run rspf & create object for each model of interest
-#where "species" is your column of 0s and 1s associated with each species
-#so your models will look like:
-#rspf(sigmodon~dist_water_stand+dist_veg_stand+veg_cover_stand, data=data, B=99)
+# scale continuous variables:
+rsf_veg$veg_cover <- scale(rsf_veg$veg_cover)
+rsf_veg$dist_water <- scale(rsf_veg$dist_water)
+
+# run rspf & create object for each model of interest
+# where "species" is your column of 0s and 1s associated with each species
+# so your models will look like:
+# rspf(sigmodon~dist_water_stand+dist_veg_stand+veg_cover_stand, data=data, B=99)
 #or something like that
 
-m1<-rspf(species~var1+var2+var3, m=id, data=data B=99)
+m1 <- rspf(sigmodon ~ veg_cover + dist_water + Grouped_Veg, m = 0, data = rsf_veg, B=99)
 summary(m1)
 
-m2<-rspf(species~var1+var2, data=data, m=id, B=99)
+m2<-rspf(sigmodon ~ veg_cover + Grouped_Veg, m = 0, data = rsf_veg, B=99)
 summary(m2)
 
-m3<-rspf(species~var1, m=id,data=data, B=99)
+m3<-rspf(sigmodon ~ Grouped_Veg, m = 0, data = rsf_veg, B=99)
 summary(m3)
 
-m4<-rspf(species~var3, m=id, data=data,  B=99)
+m4<-rspf(sigmodon ~ veg_cover, m = 0, data = rsf_veg, B=99)
 summary(m4)
 
-m5<-rspf(species~var3+var1+var1_squared, m=id, data=data, B=99)
+m5<-rspf(sigmodon ~ veg_cover * Grouped_Veg, m = 0, data = rsf_veg, B=99)
 summary(m5)
 
 #model selection based on AIC
 
-CAIC(m1,m2, m3, m5)
-AIC(m1, m2, m3, m5)
+CAIC(m1,m2, m3, m4, m5)
+AIC(m1, m2, m3, m4, m5)
 
 #average models within 2 deltaAIC of lowest:
 summary(model.avg(m1, m2))
