@@ -5,7 +5,7 @@
 library(tidyverse)
 
 joined_data <- read_csv("data/joined_data.csv")
-microsite <- read_csv("data/microsite_raw.csv")
+microsite <- read_csv("data/microsite_grouped_veg.csv")
 
 # VEGETATION AT CAPTURE SITES ####
 
@@ -27,7 +27,8 @@ site_veg_count_cap <- site_veg_list_cap %>%
 
 veg_abundance_cap <- joined_data %>% 
   group_by(Site,Grouped_Veg) %>% 
-  count()
+  count() %>% 
+  rename(n_caps = n)
 
 # Plot Abundance at Capture Sites
 
@@ -40,7 +41,6 @@ ggplot(veg_abundance_cap, aes(x = Site, y = n, fill = Grouped_Veg)) +
 # VEGETATION AT ALL SITES ####
 
 # Calculate Species Richness
-
 vegCat_list <- microsite %>% 
   distinct(Grouped_Veg)
 
@@ -57,7 +57,8 @@ site_veg_count <- site_veg_list %>%
 
 veg_abundance <- microsite %>% 
   group_by(Site,Grouped_Veg) %>% 
-  count()
+  count() %>% 
+  mutate(n_trapnights = n * 3, .keep = "none")
 
 # Plot Abundance at ALL Sites
 
@@ -83,3 +84,13 @@ veg_abundance_cap %>%
          lnProp=log(Proportion),
          Prop_x_lnProp = Proportion*lnProp) %>% 
   summarise(ShannonIndex=-sum(Prop_x_lnProp))
+
+
+# Proportional Veg Data
+
+veg_abundance_cap2 <- full_join(veg_abundance_cap, veg_abundance) %>% 
+  mutate(prop_trapnights_cap = n_caps/n_trapnights)
+
+ggplot(veg_abundance_cap2, aes(x = Site, y = prop_trapnights_cap, fill = Grouped_Veg)) +
+  geom_col(position = "dodge") +
+  theme_light()

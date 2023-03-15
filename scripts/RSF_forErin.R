@@ -28,20 +28,7 @@ attach(data)
 # Make veg category column
 
 # Create groupings for vegetation data
-microsite <- read_csv("data/microsite_raw.csv")
-
-grass <- c("Bermuda grass", "Unknown grass", "Buffelgrass", "Unidentified grass", "Johnson grass", "Unidentified Grama grass", "Johnson grass, bermuda grass", "Bermuda grass / Johnson grass", "Johnson grass / bermuda grass" )
-shrubs <- c("Arrowweed", "Cheese bush", "Cheesebush", "Desert broom", "Mesquite", "Salt cedar", "Desert broom/salt cedar")
-forbs <- c("Cockleburr", "Cheeseweed burrobush")
-sedge_typha <- c("Umbrella flatsedge", "Typha")
-mixed <- c("Tall flatsedge / Bermuda mix", "Salt cedar / Typha", "Cheeseweed burrobush/Johnson grass", "Desert broom/Bermuda grass", "Johnson grass, desert broom", "unidentified aster/Bermuda grass", "Smartweed/Typha mix")
-
-microsite <- microsite%>% 
-  mutate(Grouped_Veg = case_when(veg_type %in% grass ~ 'grass', 
-                                 veg_type %in% shrubs ~ 'shrubs',
-                                 veg_type %in% forbs ~ 'forb',
-                                 veg_type %in% sedge_typha ~ 'sedge_typha',
-                                 TRUE ~ 'mixed'))
+microsite <- read_csv("data/microsite_grouped_veg.csv")
 
 rsf_veg <- full_join(rsf, select(microsite, `Trap Location`, Grouped_Veg), by = c("trap_id" = "Trap Location"))
 
@@ -98,43 +85,51 @@ summary(model.avg(m1, m2))
 
 ##Look at frequency histogram for original standardized distance variable, see whether it is normal/linear
 windows(record=TRUE)
-hist(data$var1)
+hist(rsf_veg$dist_veg)
+
+rsf_veg$dist_veg_sq <- sqrt(rsf_veg$dist_veg)
+hist(rsf_veg$dist_veg_sq)
+
+hist(rsf_veg$dist_water)
 
 ##standardize variables
-data$stand_var1<-(data$var1(data$var1))/sd(data$var1)
+#data$stand_var1<-(data$var1(data$var1))/sd(data$var1)
 #note: the command "scale" does the same thing 
 
 ####May not need to do this if we don't have any continuous variables:
 ##Square the distance variable to prepare for the quadratic model
-data$var1<-(data$var1)^2
+#data$var1<-(data$var1)^2
 
 ##Standardize squared burrow distance variable
-data$stand_burrsq<-(data$distburrsq-mean(data$distburrsq))/sd(data$distburrsq)
+#data$stand_burrsq<-(data$distburrsq-mean(data$distburrsq))/sd(data$distburrsq)
 
-hist(data$stand_burrsq)
+#hist(data$stand_burrsq)
 
 ###Relevel the categorical variable so that the category that comprised the majority of the study area becomes the intercept
-data$class<-relevel(data$class,"4")
+rsf_veg$Grouped_Veg <- as.factor(rsf_veg$Grouped_Veg)
+rsf_veg$Grouped_Veg <- relevel(rsf_veg$Grouped_Veg, "sedge_typha")
 
 ###use AIC for model selection
 
 ##Run the first model with the original standardized distance
 #add random effect for loc/species/id if necessary
-datamod<-glmer(species~data$class+data$stand_dist_burr+data$stand_dist_wash+(1|id),family="binomial",data=data)
+datamod <- glmer(sigmodon ~ rsf_veg$Grouped_Veg + rsf_veg$veg_cover + rsf_veg$dist_veg + (1 | site) + (1 | trap_id), family="binomial", data=rsf_veg)
 
 ##Run the second model as quadratic using the squared distance variable, if needed
 #if no need for a quadratic model, can skip to dredge step
-datamodquad<-glmer(species~class+stand_dist_burr+stand_burrsq+stand_dist_wash+stand_dist_washsq+(1|id),family="binomial",data=data)
+#datamodquad<-glmer(species~class+stand_dist_burr+stand_burrsq+stand_dist_wash+stand_dist_washsq+(1|id),family="binomial",data=data)
 
 ##Inspect individual model output
 summary(datamod)
-summary(datamodquad)
+summary(datamod2)
+summary(datamod3)
+summary(datamod4)
 
-##use quadratic as dredge model if higher AIC
+##use quadratic as dredge model if lower AIC
 
 #Dredge:
 options(na.action=na.fail)
-a.dred<-dredge(datamodquad, trace=TRUE, rank="AICc", REML=FALSE)
+a.dred <- dredge(datamod, trace=TRUE, rank="AICc", REML=FALSE)
 a.dred
 ##this output tells you which variables are included in the models with the lowest AIC 
 
