@@ -53,6 +53,14 @@ fixed_abundance <- filter(fixed_recaptures, `Status (R/N)` != "R",
   group_by(Site, Species) %>% 
   count()
 
+fixed_recap_abund <- fixed_recaptures %>% 
+  filter(`Status (R/N)` == "R", Species != "SIOC?", Species != "DIME?", Species != "DI") %>% 
+group_by(Site, Species) %>% 
+  summarize(n_recap=n())
+
+recap_rate <- full_join(fixed_abundance, fixed_recap_abund) %>% 
+  mutate(recap_rate = n_recap/n)
+
 shannon_index <- fixed_abundance %>% 
   group_by(Site) %>% 
   mutate(Site_Total=sum(n),
@@ -60,3 +68,6 @@ shannon_index <- fixed_abundance %>%
          lnProp=log(Proportion),
          Prop_x_lnProp = Proportion*lnProp) %>% 
   summarise(ShannonIndex=-sum(Prop_x_lnProp))
+
+recapture_rate <- fixed_recaptures %>% 
+  group_by(Species, Site)

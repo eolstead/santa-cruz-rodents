@@ -58,7 +58,7 @@ site_veg_count <- site_veg_list %>%
 veg_abundance <- microsite %>% 
   group_by(Site,Grouped_Veg) %>% 
   count() %>% 
-  mutate(n_trapnights = n * 3, .keep = "none")
+  mutate(n_trapnights = n * 3)
 
 # Plot Abundance at ALL Sites
 

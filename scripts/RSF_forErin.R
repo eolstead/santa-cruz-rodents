@@ -113,7 +113,18 @@ rsf_veg$Grouped_Veg <- relevel(rsf_veg$Grouped_Veg, "sedge_typha")
 
 ##Run the first model with the original standardized distance
 #add random effect for loc/species/id if necessary
-datamod <- glmer(sigmodon ~ rsf_veg$Grouped_Veg + rsf_veg$veg_cover + rsf_veg$dist_veg + (1 | site) + (1 | trap_id), family="binomial", data=rsf_veg)
+datamod <- glmer(sigmodon ~ Grouped_Veg + veg_cover + dist_veg + dist_water + (1 | site) + (1 | trap_id), family="binomial", data=rsf_veg)
+
+datamod <- glmer(reithro ~ Grouped_Veg + veg_cover + dist_veg + dist_water + (1 | site) + (1 | trap_id), family="binomial", data=rsf_veg)
+
+datamod <- glmer(dipod ~ Grouped_Veg + veg_cover + dist_veg + dist_water + (1 | site) + (1 | trap_id), family="binomial", data=rsf_veg)
+
+datamod <- glmer(chaedo ~ Grouped_Veg + veg_cover + dist_veg + dist_water + (1 | site) + (1 | trap_id), family="binomial", data=rsf_veg)
+
+datamod <- glmer(pero ~ Grouped_Veg + veg_cover + dist_veg + dist_water + (1 | site) + (1 | trap_id), family="binomial", data=rsf_veg)
+
+datamod <- glmer(neotoma ~ Grouped_Veg + dist_veg + (1 | site) + (1 | trap_id), family="binomial", data=rsf_veg)
+
 
 ##Run the second model as quadratic using the squared distance variable, if needed
 #if no need for a quadratic model, can skip to dredge step
@@ -121,9 +132,6 @@ datamod <- glmer(sigmodon ~ rsf_veg$Grouped_Veg + rsf_veg$veg_cover + rsf_veg$di
 
 ##Inspect individual model output
 summary(datamod)
-summary(datamod2)
-summary(datamod3)
-summary(datamod4)
 
 ##use quadratic as dredge model if lower AIC
 
@@ -135,6 +143,8 @@ a.dred
 
 #if you have more than one model within 2 deltaAIC of lowest, can average them together:
 summary(model.avg(a.dred, subset=delta<2))
+
+summary(model.avg(a.dred))
 
 #full v. conditional averages:
 ##the full average will input a "0" for beta values of variables not included in one model when calculating the model averages
