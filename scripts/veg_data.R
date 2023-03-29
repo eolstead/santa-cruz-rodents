@@ -81,6 +81,14 @@ dimnames <- list(
 )
 
 contingency_table
+props <- as.data.frame(prop.table(contingency_table))
+colnames(props) <- c("Species", "Vegetation", "Freq")
+
+ggplot(props, aes(x = Species, y = Freq, fill = Vegetation)) +
+  geom_col() +
+  theme_classic()
+
+ggsave("output/frequency_of_species_and_vegetation.png", width = 6, height = 4)
 
 # ANALYSIS ####
 
