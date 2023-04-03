@@ -84,9 +84,10 @@ contingency_table
 props <- as.data.frame(prop.table(contingency_table))
 colnames(props) <- c("Species", "Vegetation", "Freq")
 
+# frequency each species was found in each type of vegetation type
 ggplot(props, aes(x = Species, y = Freq, fill = Vegetation)) +
-  geom_col() +
-  theme_classic()
+  geom_col() + ylab("Frequency") +
+  theme_bw() + scale_fill_discrete(name = "Vegetation Type", labels = c("Forb", "Grass", "Mixed", "Sedge/Typha", "Shrubs"))
 
 ggsave("output/frequency_of_species_and_vegetation.png", width = 6, height = 4)
 

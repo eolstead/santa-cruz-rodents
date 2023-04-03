@@ -32,11 +32,12 @@ veg_abundance_cap <- joined_data %>%
 
 # Plot Abundance at Capture Sites
 
-ggplot(veg_abundance_cap, aes(x = Site, y = n, fill = Grouped_Veg)) +
+ggplot(veg_abundance_cap, aes(x = Site, y = n_caps, fill = Grouped_Veg)) +
   geom_bar(stat= 'identity', position='dodge') +
-  ylab("Vegetation Type per Trap Site") + ggtitle("Vegetation Types at Capture Trap Locations per Site") +
-  theme_bw()
+  ylab("Vegetation Type per Capture Site") +
+  theme_bw() + scale_fill_discrete(name = "Vegetation Type", labels = c("Forb", "Grass", "Mixed", "Sedge/Typha", "Shrubs"))
 
+ggsave("output/vegetation_type_per_capture_site.png", width = 6, height = 4)
 
 # VEGETATION AT ALL SITES ####
 
@@ -64,8 +65,10 @@ veg_abundance <- microsite %>%
 
 ggplot(veg_abundance, aes(x = Site, y = n, fill = Grouped_Veg)) +
   geom_bar(stat= 'identity', position='dodge') +
-  ylab("Vegetation Type per Trap Location") + ggtitle("Vegetation Types at Trap Locations per Site") +
-  theme_bw()
+  ylab("Vegetation Type per Trap Location") +
+  theme_bw() + scale_fill_discrete(name = "Vegetation Type", labels = c("Forb", "Grass", "Mixed", "Sedge/Typha", "Shrubs"))
+
+ggsave("output/vegetation_type_per_trap_site.png", width = 6, height = 4)
 
 
 # Shannon Index for All Sites and Capture Sites
@@ -92,5 +95,7 @@ veg_abundance_cap2 <- full_join(veg_abundance_cap, veg_abundance) %>%
   mutate(prop_trapnights_cap = n_caps/n_trapnights)
 
 ggplot(veg_abundance_cap2, aes(x = Site, y = prop_trapnights_cap, fill = Grouped_Veg)) +
-  geom_col(position = "dodge") +
-  theme_light()
+  geom_col(position = "dodge") + ylab("Normalized Vegetation Type per Capture Site") +
+  theme_bw() + scale_fill_discrete(name = "Vegetation Type", labels = c("Forb", "Grass", "Mixed", "Sedge/Typha", "Shrubs"))
+
+ggsave("output/normalized_vegetation_type_per_capture_site.png", width = 6, height = 4)

@@ -37,8 +37,8 @@ site_sp_count <- site_sp_list %>%
 ggplot(site_sp_count, aes(x = Site, y = n_species, fill = Site)) +
   geom_col() +
   ylab("Species Richness") +
-  theme_bw()
-ggsave("output/site_sp_richness.png")
+  theme_bw() 
+ggsave("output/site_sp_richness.png", width = 4, height = 4)
 
 
 # Abundance Calculation Without Recaptures
@@ -52,6 +52,15 @@ fixed_abundance <- filter(fixed_recaptures, `Status (R/N)` != "R",
        Species != "SIOC?", Species != "DIME?", Species != "DI") %>% 
   group_by(Site, Species) %>% 
   count()
+
+fixed_abund_site <- xtabs(n~Site, fixed_abundance)
+
+ggplot(fixed_abundance, aes(x = Site, y = n, fill = Species)) +
+  geom_bar(stat= 'identity', position='dodge') +
+  ylab("Species Abundance") +
+  theme_bw()
+
+ggsave("output/species_abundance_per_site.png", width = 6, height = 4)
 
 fixed_recap_abund <- fixed_recaptures %>% 
   filter(`Status (R/N)` == "R", Species != "SIOC?", Species != "DIME?", Species != "DI") %>% 
